@@ -36,7 +36,7 @@ const SignUp = () => {
   };
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
         <Text style={styles.title}>Create an account</Text>
         <CustomInput
@@ -87,6 +87,9 @@ const SignUp = () => {
 export default SignUp;
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor:"#990E0F",
+  },
   root: {
     alignItems: "center",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
@@ -99,8 +102,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
+    color:"white",
     fontWeight: "bold",
-    color: "#051C60",
     margin: 10,
   },
   text: {
