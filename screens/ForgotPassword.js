@@ -24,7 +24,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
         <Text style={styles.title}>Reset your password</Text>
 
@@ -45,6 +45,9 @@ const ForgotPassword = () => {
 export default ForgotPassword;
 
 const styles = StyleSheet.create({
+  container:{
+    backgroundColor:"#990E0F",
+  },
   root: {
     alignItems: "center",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
@@ -53,7 +56,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#051C60",
+    color: "white",
     margin: 10,
   },
   text: {
