@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     marginRight: 10,
-    borderRadius: 5,
+    borderRadius: 50,
     marginTop: 10,
     marginBottom: 13,
   },
