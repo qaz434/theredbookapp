@@ -6,18 +6,6 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useState } from "react";
 
 
-const Messages = ({ navigation }) => {
-  const [search, setSearch] = useState();
-  const [filteredUsers, setFilteredUsers] = useState(messagesData)
-
-  const handleSearch = (text) => {
-    setSearch(text);
-
-    const filteredData =  messagesData.filter((user) => 
-    user.fullName.toLowerCase().includes(text.toLowerCase()));
-
-    setFilteredUsers(filteredData);
-  }
 
   const messagesData = [
     {
@@ -82,6 +70,20 @@ const Messages = ({ navigation }) => {
     },
     
 ]
+
+const Messages = ({ navigation }) => {
+  const [search, setSearch] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState(messagesData);
+
+  const handleSearch = (text) => {
+    setSearch(text);
+
+    const filteredData =  messagesData.filter((user) => 
+      user.fullName.toLowerCase().includes(text.toLowerCase())
+    );
+
+    setFilteredUsers(filteredData);
+  };
 
   const renderItem = ({ item, index }) => (
     <TouchableOpacity
