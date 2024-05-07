@@ -1,99 +1,95 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-  TextInput,
-  FlatList,
-  Image,
-} from "react-native";
+import { View, Text, StyleSheet, 
+  TouchableOpacity, SafeAreaView, 
+  TextInput, FlatList, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useState } from "react";
 
+
 const Messages = ({ navigation }) => {
   const [search, setSearch] = useState();
-  const [filteredUser, setFilteredUser] = useState(messagesData);
+  const [filteredUsers, setFilteredUsers] = useState(messagesData)
 
   const handleSearch = (text) => {
     setSearch(text);
 
-    const filteredData = messagesData.filter;
-  };
+    const filteredData =  messagesData.filter((user) => 
+    user.fullName.toLowerCase().includes(text.toLowerCase()));
+
+    setFilteredUsers(filteredData);
+  }
 
   const messagesData = [
     {
-      id: "1",
-      fullName: "Wife Wife",
-      isOnline: false,
-      userImg: require("../assets/images/user1.jpg"),
-      lastSeen: "2023-11-16T04:52:06.501Z",
-      lastMessage: "See you soon!",
-      messageInQueue: 2,
-      lastMessageTime: "12:25 PM",
+        id: "1",
+        fullName: "Wife Wife",
+        isOnline: false,
+        userImg: require("../assets/images/user1.jpg"),        
+        lastSeen: "2023-11-16T04:52:06.501Z",
+        lastMessage: 'See you soon!',
+        messageInQueue: 2,
+        lastMessageTime: "12:25 PM",
     },
     {
-      id: "2",
-      fullName: "My Friend",
-      isOnline: true,
-      userImg: require("../assets/images/user2.jpg"),
-      lastSeen: "2023-11-18T04:52:06.501Z",
-      lastMessage: "I Know. you are so busy man.",
-      messageInQueue: 0,
-      lastMessageTime: "12:15 PM",
+        id: "2",
+        fullName: "My Friend",
+        isOnline: true,
+        userImg: require("../assets/images/user2.jpg"),
+        lastSeen: "2023-11-18T04:52:06.501Z",
+        lastMessage: 'I Know. you are so busy man.',
+        messageInQueue: 0,
+        lastMessageTime: "12:15 PM",
     },
     {
-      id: "3",
-      fullName: "Jane Doe",
-      isOnline: true,
-      userImg: require("../assets/images/user3.jpg"),
-      lastSeen: "2023-11-20T04:52:06.501Z",
-      lastMessage: "Ok, see u soon",
-      messageInQueue: 0,
-      lastMessageTime: "09:12 PM",
+        id: "3",
+        fullName: "Jane Doe",
+        isOnline: true,
+        userImg: require("../assets/images/user3.jpg"),
+        lastSeen: "2023-11-20T04:52:06.501Z",
+        lastMessage: 'Ok, see u soon',
+        messageInQueue: 0,
+        lastMessageTime: "09:12 PM",
     },
     {
-      id: "4",
-      fullName: "Joe Joe",
-      isOnline: false,
-      userImg: require("../assets/images/user4.jpg"),
-      lastSeen: "2023-11-18T04:52:06.501Z",
-      lastMessage: "Great! Do you Love it.",
-      messageInQueue: 0,
-      lastMessageTime: "04:12 PM",
+        id: "4",
+        fullName: "Joe Joe",
+        isOnline: false,
+        userImg: require("../assets/images/user4.jpg"),
+        lastSeen: "2023-11-18T04:52:06.501Z",
+        lastMessage: 'Great! Do you Love it.',
+        messageInQueue: 0,
+        lastMessageTime: "04:12 PM",
     },
     {
-      id: "5",
-      fullName: "Bill Bill",
-      isOnline: false,
-      userImg: require("../assets/images/user5.jpg"),
-      lastSeen: "2023-11-21T04:52:06.501Z",
-      lastMessage: "Thank you !",
-      messageInQueue: 2,
-      lastMessageTime: "10:30 AM",
+        id: "5",
+        fullName: "Bill Bill",
+        isOnline: false,
+        userImg: require("../assets/images/user5.jpg"),
+        lastSeen: "2023-11-21T04:52:06.501Z",
+        lastMessage: 'Thank you !',
+        messageInQueue: 2,
+        lastMessageTime: "10:30 AM",
     },
     {
-      id: "6",
-      fullName: "First Last",
-      isOnline: false,
-      userImg: require("../assets/images/user6.jpg"),
-      lastSeen: "2023-11-20T04:52:06.501Z",
-      lastMessage: "Do you want to go out dinner",
-      messageInQueue: 3,
-      lastMessageTime: "10:05 PM",
+        id: "6",
+        fullName: "First Last",
+        isOnline: false,
+        userImg: require("../assets/images/user6.jpg"),
+        lastSeen: "2023-11-20T04:52:06.501Z",
+        lastMessage: 'Do you want to go out dinner',
+        messageInQueue: 3,
+        lastMessageTime: "10:05 PM",
     },
-  ];
+    
+]
 
   const renderItem = ({ item, index }) => (
     <TouchableOpacity
       key={index}
-      onPress={() =>
-        navigation.navigate("PersonalMessage", { username: item.fullName })
-      }
+      onPress={() => navigation.navigate("PersonalMessage", { username: item.fullName })}
       style={[
         styles.userContainer,
-        index % 2 !== 0 ? styles.oddBackground : null,
+        index % 2 !== 0 ? styles.oddBackground : null
       ]}
     >
       <View style={styles.userInfoContainer}>
@@ -130,18 +126,22 @@ const Messages = ({ navigation }) => {
       <View>
         <View style={styles.searchBar}>
           <TouchableOpacity>
-            <Ionicons name="search-outline" size={20} color="black" />
+            <Ionicons
+              name="search-outline"
+              size={20}
+              color="black"
+            />
           </TouchableOpacity>
           <TextInput
             style={styles.searchInput}
             placeholder="Search"
             value={search}
-            onChangeText={setSearch}
+            onChangeText={handleSearch}
           />
         </View>
         <View>
           <FlatList
-            data={messagesData}
+            data={filteredUsers}
             showsHorizontalScrollIndicator={false}
             renderItem={renderItem}
             keyExtractor={(item) => item.id.toString()}
@@ -153,11 +153,14 @@ const Messages = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.area}>
-      <View style={styles.container}>{renderContent()}</View>
+      <View style={styles.container}>
+        {renderContent()}
+      </View>
       <StatusBar style="auto" />
     </SafeAreaView>
   );
 };
+
 
 const styles = StyleSheet.create({
   area: {
