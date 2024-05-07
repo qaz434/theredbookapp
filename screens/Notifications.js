@@ -106,7 +106,7 @@ const Notifications = () => {
         <Text style={styles.text}>Notifications</Text>
         {/* Conditional rendering based on new notifications */}
         {newNotifications === 0 ? (
-          <Text>No New Notifications</Text>
+          <Text style={styles.textsub}>No New Notifications</Text>
         ) : (
           // Rendering notifications
           /* log.map((notification, index) => (
@@ -159,7 +159,7 @@ export default Notifications;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fafafa",
+    backgroundColor: "#990E0F",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     right: 10,
   },
   filterText: {
-    color: "blue",
+    color: "white",
     fontWeight: "bold",
     fontSize: 16,
   },
@@ -191,9 +191,14 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     fontWeight: "bold",
+    color:"white",
+  },
+  textsub: {
+    color:"white",
   },
   notification: {
     backgroundColor: "#f0f0f0",
+    color:"white",
     padding: 10,
     marginVertical: 5,
     borderRadius: 5,
@@ -221,10 +226,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   activeFilterButton: {
-    backgroundColor: "blue",
+    backgroundColor: "#39D2C0",
   },
   applyFilterButton: {
-    backgroundColor: "blue",
+    backgroundColor: "#39D2C0",
     padding: 10,
     marginTop: 10,
     borderRadius: 5,
