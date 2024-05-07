@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
+    color:"white"
   },
   headerContainer: {
     flexDirection: "row",
@@ -106,13 +107,14 @@ const styles = StyleSheet.create({
   },
   switchText: {
     fontSize: 16,
-    color: "#007BFF",
+    color: "white",
     fontWeight: "bold",
   },
   input: {
     height: 50,
     borderWidth: 1,
     borderColor: "#ddd",
+    backgroundColor:"white",
     padding: 10,
     marginBottom: 5,
   },
@@ -122,6 +124,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     borderWidth: 1,
     borderColor: "#ddd",
+    backgroundColor:"white",
     padding: 10,
   },
   imagePreviewContainer: {
