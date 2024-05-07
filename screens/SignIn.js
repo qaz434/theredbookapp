@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useState } from "react";
-import LogoImg from "../assets/images/RedBook.png";
+import LogoImg from "../assets/images/RedBookWhite-svg.png";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
 import SocialSignInButtons from "../components/SocialSignInButtons";
@@ -35,7 +35,7 @@ const SignIn = () => {
 
   const { height } = useWindowDimensions();
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView  style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
         <Image
           source={LogoImg}
@@ -79,13 +79,16 @@ const SignIn = () => {
 export default SignIn;
 
 const styles = StyleSheet.create({
+  container:{
+    backgroundColor:"#990E0F",
+
+  },
   root: {
     alignItems: "center",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     paddingHorizontal: 20,
   },
   logo: {
-    width: "25%",
     maxWidth: 300,
     maxHeight: 200,
   },
