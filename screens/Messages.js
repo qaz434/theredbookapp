@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFDD0",
   },
   container: {
-    backgroundColor: "#FFFDD0",
+    backgroundColor: "#990E0F",
     flex: 1,
     padding: 16,
   },
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ccc",
   },
   oddBackground: {
-    backgroundColor: "#FAF3E0",
+    backgroundColor: "#730001",
   },
   userImageContainer: {
     marginRight: 10,
@@ -203,12 +203,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     right: 0,
-    backgroundColor: "#00ff00",
+    backgroundColor: "#39D2C0",
     width: 10,
     height: 10,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: "#fff",
   },
   userImage: {
     width: 50,
@@ -225,12 +224,13 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   username: {
+    color:"white",
     fontSize: 16,
     fontWeight: "bold",
   },
   lastMessage: {
     fontSize: 14,
-    color: "#888",
+    color: "white",
   },
   messageDetails: {
     alignItems: "flex-end",
@@ -238,21 +238,22 @@ const styles = StyleSheet.create({
   },
   lastMessageTime: {
     fontSize: 12,
-    color: "#888",
+    color: "white",
   },
   messageInQueueContainer: {
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: "#D3D3D3",
+    backgroundColor: "#FFFDD0",
     justifyContent: "center",
     alignItems: "center",
     marginTop: 5,
   },
   messageInQueue: {
     fontSize: 12,
-    color: "#fff",
+    color: "black",
   },
 });
+
 
 export default Messages;
