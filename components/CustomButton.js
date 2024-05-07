@@ -9,7 +9,7 @@ const CustomButton = ({
   foregroundColor,
   width = "100%",
   height = 50,
-  marginTop = 0,
+  marginTop = 10,
   marginBottom = 0,
 }) => {
   return (
@@ -50,25 +50,25 @@ const styles = StyleSheet.create({
   },
 
   container_PRIMARY: {
-    backgroundColor: "#3B71F3",
+    marginTop:100,
+    backgroundColor: "#39D2C0",
   },
 
   container_SECONDARY: {
-    borderColor: "#3B71F3",
-    borderWidth: 2,
+    backgroundColor: "#39D2C0"
   },
 
   container_TERTIARY: {},
 
   text: {
     fontWeight: "bold",
-    color: "white",
+    color: "black",
   },
 
   text_SECONDARY: {
-    color: "#3B71F3",
+    color: "black",
   },
   text_TERTIARY: {
-    color: "gray",
+    color: "white",
   },
 });
