@@ -1,157 +1,166 @@
-import React, { useContext } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, StyleSheet } from "react-native";
-import { Image, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ScrollView,
+  Image,
+} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import EditProfile from "../screens/EditProfile";
-import ProfileDataContext from "../contexts/ProfileDataContext";
 
-const ProfileHeader = () => {
-  const { profileData } = useContext(ProfileDataContext);
+const Review = ({ review, onPress, onBookmark }) => {
+  const [showFullBody, setShowFullBody] = useState(false);
+  const [likes, setLikes] = useState(review.likes);
+  const [liked, setLiked] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
+  const MAX_BODY_LENGTH = 250;
 
-  // Add console.log to track profileData changes
-  console.log("Profile Data (profile header):", profileData);
-  const navigation = useNavigation();
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(review.date));
 
-  const handleEditProfile = () => {
-    navigation.navigate("EditProfile");
+  const bodyContent = showFullBody
+    ? review.body
+    : review.body.substring(0, MAX_BODY_LENGTH) + "...";
+
+  const handleLike = () => {
+    setLikes(likes + (liked ? -1 : 1));
+    setLiked(!liked);
+  };
+
+  const handleBookmark = () => {
+    setBookmarked(!bookmarked); 
+    onBookmark({ ...review, bookmarked: !bookmarked }); 
   };
 
   return (
-    <>
-      {/* header photo */}
-      <View>
-        <Image
-          source={require("../assets/images/ualbany.jpeg")}
-          resizeMode="cover"
-          style={styles.headerPhoto}
-        />
-      </View>
-
-      {/* profile info */}
-      <View style={styles.profileInfoContainer}>
-        {/* Profile image and details */}
-        <View
-          style={{
-            flex: 1,
-            alignItems: "left",
-          }}
-        >
-          <Image
-            source={require("../assets/images/damien.png")}
-            resizeMode="cover"
-            style={styles.profilePicture}
-          />
-
-          <Text style={styles.profileName}>{profileData.fullName}</Text>
-
-          <Text style={styles.userName}>@{profileData.username}</Text>
-
-          <Text style={styles.profileDesc}>{profileData.bio}</Text>
-
-          <View style={styles.location}>
-            <Ionicons name="location-outline" size={15} color="black" />
-            <Text
-              style={{
-                fontWeight: "200",
-                fontSize: 12,
-                marginHorizontal: 5,
-              }}
-            >
-              {profileData.location}
-            </Text>
-          </View>
-
-          <View style={styles.followContainer}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Text style={styles.followNum}>{profileData.followers}</Text>
-              <Text>Followers</Text>
-            </View>
-
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginHorizontal: 20,
-              }}
-            >
-              <Text style={styles.followNum}>{profileData.following}</Text>
-              <Text>Following</Text>
-            </View>
-          </View>
+    <Pressable onPress={onPress}>
+      <View style={styles.reviewContainer}>
+        <View style={styles.header}>
+          <Text style={styles.title}>{review.title}</Text>
+          <Text style={styles.date}>{formattedDate}</Text>
         </View>
-
-        {/* Edit Profile Button */}
-        <TouchableOpacity style={styles.editButton} onPress={handleEditProfile}>
-          <Ionicons name="pencil-outline" size={24} color="black" />
-        </TouchableOpacity>
+        <Text style={styles.companyName}>{review.companyName}</Text>
+        <Text style={styles.author}>
+          {review.firstName} {review.lastName} - Zip Code: {review.zipCode}
+        </Text>
+        <Text style={styles.body}>{bodyContent}</Text>
+        {!showFullBody && review.body.length > MAX_BODY_LENGTH && (
+          <Pressable onPress={() => setShowFullBody(true)}>
+            <Text style={styles.seeMore}>See more</Text>
+          </Pressable>
+        )}
+        <ScrollView horizontal={true} style={styles.picturesContainer}>
+          {(review.pictures || []).map((picture, index) => (
+            <Image
+              key={index}
+              source={{ uri: picture }}
+              style={styles.picture}
+            />
+          ))}
+        </ScrollView>
+        <View style={styles.likesContainer}>
+          <Pressable onPress={handleLike} style={styles.likeButton}>
+            <Ionicons
+              name={liked ? "heart" : "heart-outline"}
+              size={24}
+              color={liked ? "red" : "black"}
+            />
+          </Pressable>
+          <Text style={styles.likeCount}>{likes}</Text>
+          <Pressable onPress={handleBookmark} style={styles.actionButton}>
+          <Ionicons
+            name={bookmarked ? "bookmark" : "bookmark-outline"} 
+            size={24}
+            color={bookmarked ? "black" : "black"} 
+          />
+        </Pressable>
+        </View>
       </View>
-    </>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  headerPhoto: {
-    height: 125,
-    width: "100%",
+  reviewContainer: {
+    backgroundColor: "#ffffff",
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 12,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.9,
+    shadowRadius: 3.84,
+    elevation: 3,
   },
-  editButton: {
-    position: "absolute",
-    top: 16,
-    right: 16,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 8,
-  },
-  profileInfoContainer: {
-    flex: 1,
-    alignItems: "left",
-  },
-  profilePicture: {
-    height: 75,
-    width: 75,
-    borderRadius: 999,
-    borderColor: "#36454F",
-    borderWidth: 2,
-    marginTop: -20,
-  },
-  profileName: {
-    fontWeight: "600",
-    marginVertical: 6,
-    fontSize: 20,
-    marginLeft: 10,
-  },
-  userName: {
-    fontWeight: "200",
-    marginVertical: -10,
-    fontSize: 15,
-    marginLeft: 10,
-  },
-  profileDesc: {
-    fontWeight: "300",
-    marginVertical: 20,
-    fontSize: 15,
-    marginLeft: 10,
-  },
-  location: {
+  header: {
     flexDirection: "row",
-    marginVertical: -10,
+    justifyContent: "space-between",
     alignItems: "center",
-    marginLeft: 10,
+    marginBottom: 10,
   },
-  followContainer: {
-    flexDirection: "row",
-    alignItems: "left",
-    marginHorzontal: 10,
-    marginVertical: 20,
-    marginLeft: 5,
-  },
-  followNum: {
-    marginHorizontal: 5,
+  title: {
     fontWeight: "bold",
+    fontSize: 18,
+    color: "#333333",
+  },
+  date: {
+    fontSize: 14,
+    color: "#999999",
+  },
+  companyName: {
+    fontWeight: "bold",
+    fontSize: 16,
+    marginBottom: 5,
+    color: "#007BFF",
+  },
+  author: {
+    fontSize: 14,
+    color: "#666666",
+    marginBottom: 10,
+  },
+  body: {
+    fontSize: 15,
+    color: "#444444",
+  },
+  seeMore: {
+    color: "#007BFF",
+    fontSize: 13,
+    marginTop: 4,
+    fontWeight: "bold",
+  },
+  likesContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 5,
+  },
+  likeButton: {
+    marginRight: 4,
+  },
+  likeCount: {
+    fontSize: 16,
+    marginBottom: 1,
+  },
+  bookmark:{
+    marginRight: 10,
+  },
+  picturesContainer: {},
+  picture: {
+    width: 100,
+    height: 100,
+    marginRight: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    marginBottom: 13,
   },
 });
 
-export default ProfileHeader;
+export default Review;
