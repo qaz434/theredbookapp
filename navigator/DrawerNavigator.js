@@ -7,6 +7,8 @@ import Campus from "../screens/Campus";
 import Inbox from "../screens/Inbox";
 import TabNavigator from "./TabNavigator";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { Image, StyleSheet, View } from "react-native";
+import LogoImg from "../assets/images/RedLogoBook.png";
 
 const Drawer = createDrawerNavigator();
 
@@ -23,6 +25,11 @@ function DrawerNavigator() {
         options={{
           drawerIcon: ({ color }) => (
             <Ionicons name="home" size={20} color={color} />
+          ),
+          headerTitle: () => (
+          <View style={styles.headerTitleContainer}>
+            <Image source={LogoImg} style={{ width: 100, height: 30 }} />
+          </View>
           ),
         }}
       />
@@ -47,5 +54,10 @@ function DrawerNavigator() {
     </Drawer.Navigator>
   );
 }
+const styles = StyleSheet.create({
+  headerTitleContainer: {
+    marginLeft: -30,
+  },
+});
 
 export default DrawerNavigator;
